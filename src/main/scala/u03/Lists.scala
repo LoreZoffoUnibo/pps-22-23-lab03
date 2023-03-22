@@ -1,5 +1,7 @@
 package u03
 
+import javax.swing.border.CompoundBorder
+
 object Lists extends App :
 
   // A generic linkedlist
@@ -14,8 +16,10 @@ object Lists extends App :
       case _ => 0
 
     def map[A, B](l: List[A])(mapper: A => B): List[B] = l match
-      case Cons(h, t) => Cons(mapper(h), map(t)(mapper))
+      case Cons(h, t) => Cons(mapper(h), flatMap(t)(a => Cons(mapper(a), Nil())))
       case Nil() => Nil()
+      //case Cons(h, t) => Cons(mapper(h), map(t)(mapper))
+      //case Nil() => Nil()
 
     def filter[A](l1: List[A])(pred: A => Boolean): List[A] = l1 match
       case Cons(h, t) if pred(h) => Cons(h, filter(t)(pred))
